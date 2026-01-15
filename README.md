@@ -31,6 +31,7 @@ ADMSは、ドローン運用に関わるあらゆる業務を一元管理する�
 |----------|------|------------|
 | 言語 | Python | 3.14 |
 | 言語 | Rust | 1.92 |
+| 言語 | Node.js | 24 LTS |
 | 言語 | TypeScript | latest |
 | フレームワーク | Next.js | 16 |
 | フレームワーク | FastAPI | latest |
