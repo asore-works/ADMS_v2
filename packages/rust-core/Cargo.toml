@@ -36,7 +36,7 @@ uuid = { version = "1", features = ["v7", "serde"] }
 chrono = { version = "0.4", features = ["serde"] }
 
 [dev-dependencies]
-criterion = "0.5"
+criterion = "0.8"
 proptest = "1"
 
 [profile.release]
