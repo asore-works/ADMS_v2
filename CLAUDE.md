@@ -51,13 +51,15 @@ MCPサーバーは積極的に活用する。特にserenaとcontext7は必須ツ
 - エラー発生時にも公式ドキュメントを確認して正しい解決策を見つける
 - まず`resolve-library-id`でライブラリIDを取得してから`query-docs`を使用
 
-### shadcn/ui
+### shadcn/ui MCP（フロントエンド設計時に必須）
 UIコンポーネントの検索、追加、実装例の参照ツール。
 
-**使用時の注意：**
-- プロジェクトにcomponents.jsonが必要（ない場合はinit_projectを使用）
+**必須事項：**
+- **フロントエンドのUI設計・実装時は必ず参照する**
 - コンポーネントは`search_items_in_registries`で検索してから詳細を確認
 - 使用例は`get_item_examples_from_registries`で完全な実装コードを取得
+- `get_add_command_for_items`でCLIコマンドを取得し、コンポーネントを追加
+- プロジェクトにcomponents.jsonが必要（ない場合は`npx shadcn@latest init`で初期化）
 
 ---
 
@@ -108,6 +110,35 @@ def process(data: Any) -> Any:  # ← 使用禁止
 def process(data: dict[str, str]) -> ProcessResult:
     ...
 ```
+
+---
+
+## フロントエンドUI設計ルール
+
+### shadcn/ui 全面採用
+
+本プロジェクトのフロントエンドUIは**shadcn/ui**を全面的に採用する。
+
+**必須事項：**
+- UIコンポーネントは**shadcn/uiを優先使用**する
+- テーマ・スタイリングはshadcn/uiの設計に準拠
+- 独自コンポーネント作成前に、shadcn/uiに同等機能がないか確認
+- カラー・スペーシング・タイポグラフィはshadcn/uiのCSS変数を使用
+
+**コンポーネント追加手順：**
+```bash
+# 1. MCP shadcnでコンポーネントを検索
+# 2. 実装例を確認（get_item_examples_from_registries）
+# 3. CLIコマンドで追加
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add form
+```
+
+**禁止事項：**
+- shadcn/uiに存在するコンポーネントを独自実装しない
+- Tailwind CSSのユーティリティを直接使用してshadcn/uiのスタイルを上書きしない
+- テーマカラーをハードコードしない（CSS変数を使用）
 
 ---
 

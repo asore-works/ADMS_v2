@@ -111,32 +111,46 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 
 ### 1.4 フロントエンド基盤
 
+> **UIライブラリ: shadcn/ui を全面採用**
+> - 全UIコンポーネントはshadcn/uiを使用
+> - テーマ・スタイリングはshadcn/uiの設計に準拠
+> - MCP shadcnサーバーを活用してコンポーネント検索・実装例参照
+
 - [ ] Next.js 16プロジェクト作成
   ```
   apps/web/
   ├── src/
   │   ├── app/
   │   ├── components/
+  │   │   └── ui/          # shadcn/ui コンポーネント
   │   ├── hooks/
   │   ├── lib/
   │   ├── stores/
   │   └── types/
   └── tests/
   ```
+- [ ] shadcn/ui 初期化（`npx shadcn@latest init`）
 - [ ] 依存関係インストール
-  - [ ] shadcn/ui コンポーネント
+  - [ ] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
   - [ ] TanStack Query
   - [ ] Zustand（状態管理）
   - [ ] zod（バリデーション）
   - [ ] date-fns
-- [ ] Tailwind CSS設定
-- [ ] 認証フロー（ログイン/ログアウト）
-- [ ] レイアウトコンポーネント
+- [ ] Tailwind CSS設定（shadcn/uiテーマ統合）
+- [ ] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
+- [ ] レイアウトコンポーネント - shadcn/ui準拠
 - [ ] ダッシュボードページ骨格
 
 ---
 
 ## フェーズ 2: 業務機能開発
+
+> **フロントエンド実装方針**
+> - 全UIはshadcn/uiコンポーネントを使用
+> - 実装前にMCP shadcnで該当コンポーネントの実装例を参照
+> - フォーム: shadcn/ui form + react-hook-form + zod
+> - テーブル: shadcn/ui table + @tanstack/react-table
+> - ダイアログ・モーダル: shadcn/ui dialog/sheet
 
 ### 2.1 カタログ管理
 
