@@ -1,0 +1,45 @@
+[package]
+name = "adms-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.92"
+description = "ADMS - High-performance core components"
+license = "Proprietary"
+
+[lib]
+name = "adms_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Python bindings
+pyo3 = { version = "0.23", features = ["extension-module"] }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Error handling
+thiserror = "2"
+anyhow = "1"
+
+# Geospatial
+geo = "0.29"
+geojson = "0.24"
+
+# UUID
+uuid = { version = "1", features = ["v7", "serde"] }
+
+# Date/Time
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+criterion = "0.5"
+proptest = "1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3

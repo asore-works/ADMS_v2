@@ -10,7 +10,7 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 
 ### 0.1 モノレポ構造セットアップ
 
-- [ ] ディレクトリ構造の作成
+- [x] ディレクトリ構造の作成
   ```
   ADMS_v2/
   ├── apps/
@@ -25,25 +25,25 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
   │   └── docker/       # Dockerfiles
   └── docs/             # ドキュメント
   ```
-- [ ] `.gitignore`の作成
-- [ ] `LICENSE`ファイルの作成（Private）
+- [x] `.gitignore`の作成
+- [x] `LICENSE`ファイルの作成（Private）
 
 ### 0.2 開発環境構築
 
-- [ ] `.mise.toml`の作成（Python 3.14, Rust 1.92, Node.js 24 LTS）
-- [ ] `apps/api/pyproject.toml`の作成（uv用）
-- [ ] `apps/web/package.json`の作成
-- [ ] `packages/rust-core/Cargo.toml`の作成
-- [ ] EditorConfig / Prettier / Ruff 設定
-- [ ] pre-commit hooks設定
+- [x] `.mise.toml`の作成（Python 3.14, Rust 1.92, Node.js 24 LTS）
+- [x] `apps/api/pyproject.toml`の作成（uv用）
+- [x] `apps/web/package.json`の作成
+- [x] `packages/rust-core/Cargo.toml`の作成
+- [x] EditorConfig / Prettier / Ruff 設定
+- [x] pre-commit hooks設定
 
 ### 0.3 CI/CD パイプライン基盤
 
-- [ ] GitHub Actions ワークフロー作成
-  - [ ] `ci.yml` - lint, format, type check
-  - [ ] `test.yml` - ユニットテスト・統合テスト
+- [x] GitHub Actions ワークフロー作成
+  - [x] `ci.yml` - lint, format, type check
+  - [x] `test.yml` - ユニットテスト・統合テスト
   - [ ] `build.yml` - ビルド・イメージ作成
-- [ ] Dependabot設定
+- [x] Dependabot設定
 
 ---
 
@@ -111,32 +111,46 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 
 ### 1.4 フロントエンド基盤
 
+> **UIライブラリ: shadcn/ui を全面採用**
+> - 全UIコンポーネントはshadcn/uiを使用
+> - テーマ・スタイリングはshadcn/uiの設計に準拠
+> - MCP shadcnサーバーを活用してコンポーネント検索・実装例参照
+
 - [ ] Next.js 16プロジェクト作成
   ```
   apps/web/
   ├── src/
   │   ├── app/
   │   ├── components/
+  │   │   └── ui/          # shadcn/ui コンポーネント
   │   ├── hooks/
   │   ├── lib/
   │   ├── stores/
   │   └── types/
   └── tests/
   ```
+- [ ] shadcn/ui 初期化（`npx shadcn@latest init`）
 - [ ] 依存関係インストール
-  - [ ] shadcn/ui コンポーネント
+  - [ ] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
   - [ ] TanStack Query
   - [ ] Zustand（状態管理）
   - [ ] zod（バリデーション）
   - [ ] date-fns
-- [ ] Tailwind CSS設定
-- [ ] 認証フロー（ログイン/ログアウト）
-- [ ] レイアウトコンポーネント
+- [ ] Tailwind CSS設定（shadcn/uiテーマ統合）
+- [ ] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
+- [ ] レイアウトコンポーネント - shadcn/ui準拠
 - [ ] ダッシュボードページ骨格
 
 ---
 
 ## フェーズ 2: 業務機能開発
+
+> **フロントエンド実装方針**
+> - 全UIはshadcn/uiコンポーネントを使用
+> - 実装前にMCP shadcnで該当コンポーネントの実装例を参照
+> - フォーム: shadcn/ui form + react-hook-form + zod
+> - テーブル: shadcn/ui table + @tanstack/react-table
+> - ダイアログ・モーダル: shadcn/ui dialog/sheet
 
 ### 2.1 カタログ管理
 

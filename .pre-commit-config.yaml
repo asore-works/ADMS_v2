@@ -1,0 +1,80 @@
+# Pre-commit hooks configuration
+# https://pre-commit.com/
+
+repos:
+  # General
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-added-large-files
+        args: ["--maxkb=1000"]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # Python - Ruff (linting & formatting)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+        files: ^apps/api/
+      - id: ruff-format
+        files: ^apps/api/
+
+  # Python - Type checking
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: bash -c 'cd apps/api && uv run pyright'
+        language: system
+        types: [python]
+        pass_filenames: false
+
+  # JavaScript/TypeScript - Prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        files: ^apps/web/
+        types_or: [javascript, jsx, ts, tsx, json, css, scss, markdown]
+
+  # JavaScript/TypeScript - ESLint
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: bash -c 'cd apps/web && npm run lint'
+        language: system
+        types_or: [javascript, jsx, ts, tsx]
+        pass_filenames: false
+
+  # Rust - Formatting
+  - repo: local
+    hooks:
+      - id: cargo-fmt
+        name: cargo fmt
+        entry: bash -c 'cd packages/rust-core && cargo fmt --check'
+        language: system
+        types: [rust]
+        pass_filenames: false
+
+  # Rust - Linting
+  - repo: local
+    hooks:
+      - id: cargo-clippy
+        name: cargo clippy
+        entry: bash -c 'cd packages/rust-core && cargo clippy -- -D warnings'
+        language: system
+        types: [rust]
+        pass_filenames: false
+
+# Default configuration
+default_language_version:
+  python: python3.14
+  node: "24"
