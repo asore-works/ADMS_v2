@@ -41,8 +41,10 @@
     "prettier-plugin-tailwindcss": "latest",
     "vitest": "latest",
     "@vitejs/plugin-react": "latest",
+    "@vitest/coverage-v8": "latest",
     "@testing-library/react": "latest",
-    "@testing-library/jest-dom": "latest"
+    "@testing-library/jest-dom": "latest",
+    "jsdom": "latest"
   },
   "engines": {
     "node": ">=24"
