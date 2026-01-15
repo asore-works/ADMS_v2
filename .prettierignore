@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+target/
+
+# Cache
+.turbo/
+.cache/
+
+# Generated
+*.min.js
+*.min.css
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.uv/
+
+# Rust
+target/
+
+# Misc
+coverage/
+.env*
+*.lock

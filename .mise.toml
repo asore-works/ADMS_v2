@@ -1,0 +1,65 @@
+# ADMS Development Environment Configuration
+# https://mise.jdx.dev/
+
+[tools]
+python = "3.14"
+rust = "1.92"
+node = "24"
+
+[tools.uv]
+version = "latest"
+
+[env]
+# Python
+PYTHONDONTWRITEBYTECODE = "1"
+PYTHONUNBUFFERED = "1"
+
+# Node.js
+NODE_ENV = "development"
+
+[tasks.install]
+description = "Install all dependencies"
+run = """
+cd apps/api && uv sync
+cd ../web && npm install
+cd ../../packages/rust-core && cargo build
+"""
+
+[tasks.dev-api]
+description = "Run API development server"
+run = "cd apps/api && uv run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000"
+
+[tasks.dev-web]
+description = "Run Web development server"
+run = "cd apps/web && npm run dev"
+
+[tasks.lint]
+description = "Run all linters"
+run = """
+cd apps/api && uv run ruff check .
+cd ../web && npm run lint
+cd ../../packages/rust-core && cargo clippy
+"""
+
+[tasks.format]
+description = "Format all code"
+run = """
+cd apps/api && uv run ruff format .
+cd ../web && npm run format
+cd ../../packages/rust-core && cargo fmt
+"""
+
+[tasks.test]
+description = "Run all tests"
+run = """
+cd apps/api && uv run pytest
+cd ../web && npm test
+cd ../../packages/rust-core && cargo test
+"""
+
+[tasks.typecheck]
+description = "Run type checking"
+run = """
+cd apps/api && uv run pyright
+cd ../web && npm run typecheck
+"""
