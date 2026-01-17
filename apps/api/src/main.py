@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.config.settings import settings
 from src.db import close_redis_pool
 from src.db.session import engine
+from src.routers import auth_router
 from src.utils import get_logger, register_exception_handlers, setup_logging
 
 logger = get_logger(__name__)
@@ -62,6 +63,9 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # Register API routers
+    app.include_router(auth_router, prefix="/api/v1")
 
     return app
 
