@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "./globals.css";
+import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "ADMS",
@@ -11,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body>{children}</body>
+    <html lang="ja" suppressHydrationWarning>
+      <body className="bg-background min-h-screen font-sans antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
