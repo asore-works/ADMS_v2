@@ -51,25 +51,25 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 
 ### 1.1 データベース設計
 
-- [ ] ER図の作成
-- [ ] PostgreSQL 18 スキーマ設計
-  - [ ] `users` - ユーザー・認証情報
-  - [ ] `organizations` - 組織情報
-  - [ ] `catalogs` - 機材カタログ
-  - [ ] `equipments` - 所有機材
-  - [ ] `staff` - スタッフ情報
-  - [ ] `flight_logs` - 飛行ログ
-  - [ ] `maintenance_logs` - メンテナンスログ
-  - [ ] `projects` - プロジェクト
-  - [ ] `clients` - クライアント
-  - [ ] `applications` - 飛行申請
-- [ ] UUIDv7を主キーとして採用
-- [ ] Temporal Constraintsの活用（予約・スケジュール）
-- [ ] Alembic初期マイグレーション作成
+- [x] ER図の作成
+- [x] PostgreSQL 18 スキーマ設計
+  - [x] `users` - ユーザー・認証情報
+  - [x] `organizations` - 組織情報
+  - [x] `catalogs` - 機材カタログ
+  - [x] `equipments` - 所有機材
+  - [x] `staff` - スタッフ情報
+  - [x] `flight_logs` - 飛行ログ
+  - [x] `maintenance_logs` - メンテナンスログ
+  - [x] `projects` - プロジェクト
+  - [x] `clients` - クライアント
+  - [x] `applications` - 飛行申請
+- [x] UUIDv7を主キーとして採用
+- [x] Temporal Constraintsの活用（予約・スケジュール）
+- [x] Alembic初期マイグレーション作成
 
 ### 1.2 バックエンドAPI基盤
 
-- [ ] FastAPIプロジェクト構造
+- [x] FastAPIプロジェクト構造
   ```
   apps/api/
   ├── src/
@@ -83,31 +83,31 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
   │   └── utils/
   └── tests/
   ```
-- [ ] 依存関係インストール（uv add）
-  - [ ] fastapi, uvicorn
-  - [ ] sqlalchemy, asyncpg
-  - [ ] alembic
-  - [ ] pydantic, pydantic-settings
-  - [ ] redis
-- [ ] 設定管理（pydantic-settings）
-- [ ] データベース接続設定（非同期）
-- [ ] Redis接続設定
-- [ ] ロギング設定
-- [ ] 例外ハンドリング
-- [ ] ヘルスチェックエンドポイント
+- [x] 依存関係インストール（uv add）
+  - [x] fastapi, uvicorn
+  - [x] sqlalchemy, asyncpg
+  - [x] alembic
+  - [x] pydantic, pydantic-settings
+  - [x] redis
+- [x] 設定管理（pydantic-settings）
+- [x] データベース接続設定（非同期）
+- [x] Redis接続設定
+- [x] ロギング設定
+- [x] 例外ハンドリング
+- [x] ヘルスチェックエンドポイント
 
 ### 1.3 認証・認可システム
 
-- [ ] JWT認証実装
-- [ ] リフレッシュトークン機構
-- [ ] RBAC（Role-Based Access Control）設計
-  - [ ] admin - システム管理者
-  - [ ] manager - 組織管理者
-  - [ ] operator - オペレーター
-  - [ ] viewer - 閲覧者
-- [ ] セッション管理（Redis）
-- [ ] パスワードハッシュ化（argon2）
-- [ ] 認証ミドルウェア
+- [x] JWT認証実装
+- [x] リフレッシュトークン機構
+- [x] RBAC（Role-Based Access Control）設計
+  - [x] admin - システム管理者
+  - [x] manager - 組織管理者
+  - [x] operator - オペレーター
+  - [x] viewer - 閲覧者
+- [x] セッション管理（Redis）
+- [x] パスワードハッシュ化（argon2）
+- [x] 認証ミドルウェア
 
 ### 1.4 フロントエンド基盤
 
@@ -116,7 +116,7 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 > - テーマ・スタイリングはshadcn/uiの設計に準拠
 > - MCP shadcnサーバーを活用してコンポーネント検索・実装例参照
 
-- [ ] Next.js 16プロジェクト作成
+- [x] Next.js 16プロジェクト作成
   ```
   apps/web/
   ├── src/
@@ -129,17 +129,17 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
   │   └── types/
   └── tests/
   ```
-- [ ] shadcn/ui 初期化（`npx shadcn@latest init`）
-- [ ] 依存関係インストール
-  - [ ] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
-  - [ ] TanStack Query
-  - [ ] Zustand（状態管理）
-  - [ ] zod（バリデーション）
-  - [ ] date-fns
-- [ ] Tailwind CSS設定（shadcn/uiテーマ統合）
-- [ ] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
-- [ ] レイアウトコンポーネント - shadcn/ui準拠
-- [ ] ダッシュボードページ骨格
+- [x] shadcn/ui 初期化（`npx shadcn@latest init`）
+- [x] 依存関係インストール
+  - [x] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
+  - [x] TanStack Query
+  - [x] Zustand（状態管理）
+  - [x] zod（バリデーション）
+  - [x] date-fns
+- [x] Tailwind CSS設定（shadcn/uiテーマ統合）
+- [x] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
+- [x] レイアウトコンポーネント - shadcn/ui準拠
+- [x] ダッシュボードページ骨格
 
 ---
 
