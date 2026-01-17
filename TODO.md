@@ -51,25 +51,25 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 
 ### 1.1 データベース設計
 
-- [ ] ER図の作成
-- [ ] PostgreSQL 18 スキーマ設計
-  - [ ] `users` - ユーザー・認証情報
-  - [ ] `organizations` - 組織情報
-  - [ ] `catalogs` - 機材カタログ
-  - [ ] `equipments` - 所有機材
-  - [ ] `staff` - スタッフ情報
-  - [ ] `flight_logs` - 飛行ログ
-  - [ ] `maintenance_logs` - メンテナンスログ
-  - [ ] `projects` - プロジェクト
-  - [ ] `clients` - クライアント
-  - [ ] `applications` - 飛行申請
-- [ ] UUIDv7を主キーとして採用
-- [ ] Temporal Constraintsの活用（予約・スケジュール）
-- [ ] Alembic初期マイグレーション作成
+- [x] ER図の作成
+- [x] PostgreSQL 18 スキーマ設計
+  - [x] `users` - ユーザー・認証情報
+  - [x] `organizations` - 組織情報
+  - [x] `catalogs` - 機材カタログ
+  - [x] `equipments` - 所有機材
+  - [x] `staff` - スタッフ情報
+  - [x] `flight_logs` - 飛行ログ
+  - [x] `maintenance_logs` - メンテナンスログ
+  - [x] `projects` - プロジェクト
+  - [x] `clients` - クライアント
+  - [x] `applications` - 飛行申請
+- [x] UUIDv7を主キーとして採用
+- [x] Temporal Constraintsの活用（予約・スケジュール）
+- [x] Alembic初期マイグレーション作成
 
 ### 1.2 バックエンドAPI基盤
 
-- [ ] FastAPIプロジェクト構造
+- [x] FastAPIプロジェクト構造
   ```
   apps/api/
   ├── src/
@@ -83,31 +83,31 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
   │   └── utils/
   └── tests/
   ```
-- [ ] 依存関係インストール（uv add）
-  - [ ] fastapi, uvicorn
-  - [ ] sqlalchemy, asyncpg
-  - [ ] alembic
-  - [ ] pydantic, pydantic-settings
-  - [ ] redis
-- [ ] 設定管理（pydantic-settings）
-- [ ] データベース接続設定（非同期）
-- [ ] Redis接続設定
-- [ ] ロギング設定
-- [ ] 例外ハンドリング
-- [ ] ヘルスチェックエンドポイント
+- [x] 依存関係インストール（uv add）
+  - [x] fastapi, uvicorn
+  - [x] sqlalchemy, asyncpg
+  - [x] alembic
+  - [x] pydantic, pydantic-settings
+  - [x] redis
+- [x] 設定管理（pydantic-settings）
+- [x] データベース接続設定（非同期）
+- [x] Redis接続設定
+- [x] ロギング設定
+- [x] 例外ハンドリング
+- [x] ヘルスチェックエンドポイント
 
 ### 1.3 認証・認可システム
 
-- [ ] JWT認証実装
-- [ ] リフレッシュトークン機構
-- [ ] RBAC（Role-Based Access Control）設計
-  - [ ] admin - システム管理者
-  - [ ] manager - 組織管理者
-  - [ ] operator - オペレーター
-  - [ ] viewer - 閲覧者
-- [ ] セッション管理（Redis）
-- [ ] パスワードハッシュ化（argon2）
-- [ ] 認証ミドルウェア
+- [x] JWT認証実装
+- [x] リフレッシュトークン機構
+- [x] RBAC（Role-Based Access Control）設計
+  - [x] admin - システム管理者
+  - [x] manager - 組織管理者
+  - [x] operator - オペレーター
+  - [x] viewer - 閲覧者
+- [x] セッション管理（Redis）
+- [x] パスワードハッシュ化（argon2）
+- [x] 認証ミドルウェア
 
 ### 1.4 フロントエンド基盤
 
@@ -116,7 +116,7 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
 > - テーマ・スタイリングはshadcn/uiの設計に準拠
 > - MCP shadcnサーバーを活用してコンポーネント検索・実装例参照
 
-- [ ] Next.js 16プロジェクト作成
+- [x] Next.js 16プロジェクト作成
   ```
   apps/web/
   ├── src/
@@ -129,17 +129,97 @@ ADMSの開発は5つのフェーズに分けて段階的に進める。各フェ
   │   └── types/
   └── tests/
   ```
-- [ ] shadcn/ui 初期化（`npx shadcn@latest init`）
-- [ ] 依存関係インストール
-  - [ ] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
-  - [ ] TanStack Query
-  - [ ] Zustand（状態管理）
-  - [ ] zod（バリデーション）
-  - [ ] date-fns
-- [ ] Tailwind CSS設定（shadcn/uiテーマ統合）
-- [ ] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
-- [ ] レイアウトコンポーネント - shadcn/ui準拠
-- [ ] ダッシュボードページ骨格
+- [x] shadcn/ui 初期化（`npx shadcn@latest init`）
+- [x] 依存関係インストール
+  - [x] shadcn/ui 基本コンポーネント（button, card, form, input, table等）
+  - [x] TanStack Query
+  - [x] Zustand（状態管理）
+  - [x] zod（バリデーション）
+  - [x] date-fns
+- [x] Tailwind CSS設定（shadcn/uiテーマ統合）
+- [x] 認証フロー（ログイン/ログアウト）- shadcn/ui form使用
+- [x] レイアウトコンポーネント - shadcn/ui準拠
+- [x] ダッシュボードページ骨格
+
+### 1.5 モデル項目修正・最適化
+
+各モデルのレビューと必要な修正を実施。
+
+#### 1.5.1 Organization モデル
+- [ ] インデックス最適化（name, code, is_active）
+- [ ] unique制約確認（code）
+- [ ] バリデーション追加（email, phone形式）
+- [ ] 組織ロゴURL追加検討
+
+#### 1.5.2 User モデル
+- [x] 基本設計完了
+- [ ] パスワード履歴テーブル追加検討
+- [ ] ログインログ記録検討
+- [ ] 最終ログイン日時追加
+
+#### 1.5.3 Catalog モデル
+- [ ] specifications を JSON型（JSONB）に変更
+- [ ] 複合インデックス追加（organization_id, category, is_active）
+- [ ] カタログコード（SKU）フィールド追加
+- [ ] バージョン管理フィールド追加検討
+
+#### 1.5.4 Equipment モデル
+- [ ] unique制約追加（organization_id, serial_number）
+- [ ] 複合インデックス追加（organization_id, status, catalog_id）
+- [ ] QRコード自動生成処理追加
+- [ ] 稼働率計算プロパティ追加
+- [ ] 総飛行時間からアラート生成機能
+
+#### 1.5.5 Staff モデル
+- [ ] full_name プロパティ追加（user.first_name + user.last_name）
+- [ ] 有効な資格数カウントプロパティ
+- [ ] スタッフ稼働状況ステータス検討
+- [ ] 複合インデックス追加（organization_id, is_available）
+
+#### 1.5.6 License モデル
+- [ ] 期限切れアラート閾値設定（30日前、7日前など）
+- [ ] 複合インデックス追加（staff_id, expiry_date）
+- [ ] 自動更新通知フラグ追加
+- [ ] 資格レベル（初級/中級/上級）フィールド検討
+
+#### 1.5.7 Client モデル
+- [ ] インデックス追加（company_name, is_active）
+- [ ] 取引開始日フィールド追加
+- [ ] 総取引額プロパティ追加
+- [ ] 優先度フィールド（VIP等）追加検討
+
+#### 1.5.8 Project モデル
+- [ ] プロジェクトコードunique制約追加（code）
+- [ ] 進捗率計算プロパティ追加
+- [ ] 予算達成率プロパティ追加
+- [ ] 複合インデックス追加（organization_id, status, start_date）
+- [ ] プロジェクトマネージャー（staff_id）フィールド追加検討
+
+#### 1.5.9 ProjectAssignment モデル
+- [ ] unique制約追加（project_id, staff_id, role）
+- [ ] アサイン時間（工数）フィールド追加検討
+- [ ] 稼働率（allocation_percentage）追加検討
+
+#### 1.5.10 FlightLog モデル
+- [ ] 複合インデックス追加（equipment_id, takeoff_time）
+- [ ] 複合インデックス追加（pilot_id, takeoff_time）
+- [ ] 飛行距離自動計算（GeoJSONから）
+- [ ] 天候データAPI連携準備
+- [ ] 飛行ログのステータス（DRAFT/COMPLETED）追加検討
+
+#### 1.5.11 MaintenanceLog モデル
+- [ ] total_cost 自動計算（labor_cost + parts_cost）
+- [ ] 複合インデックス追加（equipment_id, scheduled_date）
+- [ ] parts_replaced を JSON型（JSONB）に変更
+- [ ] checklist_items を JSON型（JSONB）に変更
+- [ ] 承認ワークフロー追加検討
+
+#### 1.5.12 FlightApplication モデル
+- [ ] DIPS API連携フィールド追加
+- [ ] 申請ステータス自動更新機能
+- [ ] 複合インデックス追加（organization_id, status, valid_until）
+- [ ] 申請テンプレート機能検討
+- [ ] 承認フロー（申請者、承認者）追加検討
 
 ---
 
