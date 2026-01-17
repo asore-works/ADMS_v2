@@ -36,8 +36,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+# lib/ is commented out to allow Next.js src/lib directory
+# lib64/ is commented out to allow Next.js src/lib directory
 parts/
 sdist/
 var/
@@ -136,3 +136,4 @@ playwright-report/
 *.tmp
 *.temp
 .cache/
+.serena/
