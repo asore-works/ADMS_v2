@@ -17,6 +17,7 @@ dependencies = [
     "argon2-cffi",
     "python-jose[cryptography]",
     "httpx",
+    "tzdata>=2025.3",
 ]
 
 [dependency-groups]
@@ -62,6 +63,13 @@ ignore = [
     "PLR0913",  # Too many arguments
     "PLR2004",  # Magic value comparison
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# SQLAlchemy models need runtime access to types for mapped_column
+"src/models/*.py" = ["TCH003"]
+"src/db/*.py" = ["TCH003"]
+# AsyncGenerator is used in runtime type annotation for lifespan
+"src/main.py" = ["TCH003"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["src"]
