@@ -6,10 +6,14 @@ import enum
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import Enum, ForeignKey, Numeric, String, Text
+from sqlalchemy import Enum, ForeignKey, Index, Numeric, String, Text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db.base import Base, TimestampMixin, uuid_pk
+
+# JSON value types for specifications
+type JSONValue = str | int | float | bool | None | list["JSONValue"] | dict[str, "JSONValue"]
 
 if TYPE_CHECKING:
     from src.models.equipment import Equipment
@@ -34,8 +38,17 @@ class Catalog(Base, TimestampMixin):
     """
 
     __tablename__ = "catalogs"
+    __table_args__ = (
+        Index(
+            "ix_catalogs_org_category_active",
+            "organization_id",
+            "category",
+            "is_active",
+        ),
+    )
 
     id: Mapped[uuid_pk]
+    sku_code: Mapped[str | None] = mapped_column(String(50), index=True)  # Stock Keeping Unit
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     manufacturer: Mapped[str] = mapped_column(String(255), nullable=False)
     model_number: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -45,13 +58,14 @@ class Catalog(Base, TimestampMixin):
         index=True,
     )
     description: Mapped[str | None] = mapped_column(Text)
-    specifications: Mapped[str | None] = mapped_column(Text)  # JSON string for flexible specs
+    specifications: Mapped[dict[str, JSONValue] | None] = mapped_column(JSONB)
     weight_grams: Mapped[int | None] = mapped_column()
     max_flight_time_minutes: Mapped[int | None] = mapped_column()
     max_range_meters: Mapped[int | None] = mapped_column()
     price: Mapped[float | None] = mapped_column(Numeric(12, 2))
     image_url: Mapped[str | None] = mapped_column(String(500))
     spec_document_url: Mapped[str | None] = mapped_column(String(500))
+    version: Mapped[int] = mapped_column(default=1, nullable=False)  # Version for tracking updates
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
 
     # Foreign keys

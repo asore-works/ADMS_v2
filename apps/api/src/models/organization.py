@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Text
+from sqlalchemy import Index, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db.base import Base, TimestampMixin, uuid_pk
@@ -26,16 +26,20 @@ class Organization(Base, TimestampMixin):
     """
 
     __tablename__ = "organizations"
+    __table_args__ = (
+        Index("ix_organizations_name_active", "name", "is_active"),
+    )
 
     id: Mapped[uuid_pk]
-    name: Mapped[str] = mapped_column(String(255), nullable=False)
-    code: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    code: Mapped[str] = mapped_column(String(50), unique=True, nullable=False, index=True)
     description: Mapped[str | None] = mapped_column(Text)
     address: Mapped[str | None] = mapped_column(Text)
     phone: Mapped[str | None] = mapped_column(String(50))
     email: Mapped[str | None] = mapped_column(String(255))
     website: Mapped[str | None] = mapped_column(String(255))
-    is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
+    logo_url: Mapped[str | None] = mapped_column(String(500))  # Organization logo
+    is_active: Mapped[bool] = mapped_column(default=True, nullable=False, index=True)
 
     # Relationships
     users: Mapped[list[User]] = relationship(

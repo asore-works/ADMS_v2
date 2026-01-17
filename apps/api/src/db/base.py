@@ -10,13 +10,13 @@ from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 # UUIDv7を主キーとして使用するための型定義
-# PostgreSQL 18のuuidv7()関数を使用
+# PostgreSQL 18のuuid_generate_v7()関数を使用
 uuid_pk = Annotated[
     UUID,
     mapped_column(
         PG_UUID(as_uuid=True),
         primary_key=True,
-        server_default=text("gen_random_uuid()"),  # PostgreSQL 18ではuuidv7()を使用可能
+        server_default=text("uuid_generate_v7()"),  # PostgreSQL 18 UUIDv7 support
     ),
 ]
 
