@@ -4,6 +4,7 @@
 
 "use client";
 
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,12 +39,21 @@ import type { Catalog, CatalogCategory } from "@/types/catalog";
 
 const catalogSchema = z.object({
   name: z.string().min(1, "カタログ名を入力してください"),
-  category: z.enum(["drone", "battery", "camera", "sensor", "accessory", "software", "other"]),
+  category: z.enum([
+    "drone",
+    "battery",
+    "camera",
+    "controller",
+    "sensor",
+    "accessory",
+    "software",
+    "other",
+  ]),
   manufacturer: z.string().optional(),
   model_number: z.string().optional(),
   sku_code: z.string().optional(),
   description: z.string().optional(),
-  unit_price: z.number().nonnegative().optional(),
+  price: z.number().nonnegative().optional(),
   is_active: z.boolean().optional(),
 });
 
@@ -61,6 +71,7 @@ const categoryOptions: { value: CatalogCategory; label: string }[] = [
   { value: "drone", label: "ドローン" },
   { value: "battery", label: "バッテリー" },
   { value: "camera", label: "カメラ" },
+  { value: "controller", label: "コントローラー" },
   { value: "sensor", label: "センサー" },
   { value: "accessory", label: "アクセサリー" },
   { value: "software", label: "ソフトウェア" },
@@ -76,27 +87,42 @@ export function CatalogForm({
 }: CatalogFormProps) {
   const form = useForm<CatalogFormValues>({
     resolver: zodResolver(catalogSchema),
-    defaultValues: catalog
-      ? {
-          name: catalog.name,
-          category: catalog.category,
-          manufacturer: catalog.manufacturer ?? undefined,
-          model_number: catalog.model_number ?? undefined,
-          sku_code: catalog.sku_code ?? undefined,
-          description: catalog.description ?? undefined,
-          unit_price: catalog.unit_price ?? undefined,
-          is_active: catalog.is_active,
-        }
-      : {
-          name: "",
-          category: "drone",
-          manufacturer: "",
-          model_number: "",
-          sku_code: "",
-          description: "",
-          is_active: true,
-        },
+    defaultValues: {
+      name: "",
+      category: "drone",
+      manufacturer: "",
+      model_number: "",
+      sku_code: "",
+      description: "",
+      is_active: true,
+    },
   });
+
+  // catalogが変更されたときにフォームをリセット
+  useEffect(() => {
+    if (catalog) {
+      form.reset({
+        name: catalog.name,
+        category: catalog.category,
+        manufacturer: catalog.manufacturer ?? undefined,
+        model_number: catalog.model_number ?? undefined,
+        sku_code: catalog.sku_code ?? undefined,
+        description: catalog.description ?? undefined,
+        price: catalog.price ?? undefined,
+        is_active: catalog.is_active,
+      });
+    } else {
+      form.reset({
+        name: "",
+        category: "drone",
+        manufacturer: "",
+        model_number: "",
+        sku_code: "",
+        description: "",
+        is_active: true,
+      });
+    }
+  }, [catalog, form]);
 
   const handleSubmit = async (values: CatalogFormValues) => {
     await onSubmit(values);
@@ -136,7 +162,7 @@ export function CatalogForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>カテゴリー *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="カテゴリーを選択" />
@@ -200,7 +226,7 @@ export function CatalogForm({
 
               <FormField
                 control={form.control}
-                name="unit_price"
+                name="price"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>単価（円）</FormLabel>

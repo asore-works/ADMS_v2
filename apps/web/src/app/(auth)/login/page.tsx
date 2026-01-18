@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod/v4";
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/hooks/use-auth";
+import { useAuthStore } from "@/stores/auth";
 
 const loginSchema = z.object({
   email: z.email("有効なメールアドレスを入力してください"),
@@ -30,6 +32,8 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const loginMutation = useLoginMutation();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -39,6 +43,13 @@ export default function LoginPage() {
     },
   });
 
+  // 既にログイン済みの場合はダッシュボードへリダイレクト
+  useEffect(() => {
+    if (isHydrated && isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, isHydrated, router]);
+
   async function onSubmit(data: LoginFormValues) {
     try {
       await loginMutation.mutateAsync(data);
@@ -47,6 +58,11 @@ export default function LoginPage() {
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "ログインに失敗しました");
     }
+  }
+
+  // 状態復元中は何も表示しない
+  if (!isHydrated) {
+    return null;
   }
 
   return (

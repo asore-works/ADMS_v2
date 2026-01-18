@@ -26,9 +26,7 @@ class Organization(Base, TimestampMixin):
     """
 
     __tablename__ = "organizations"
-    __table_args__ = (
-        Index("ix_organizations_name_active", "name", "is_active"),
-    )
+    __table_args__ = (Index("ix_organizations_name_active", "name", "is_active"),)
 
     id: Mapped[uuid_pk]
     name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)

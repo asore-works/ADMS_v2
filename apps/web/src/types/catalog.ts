@@ -6,6 +6,7 @@ export type CatalogCategory =
   | "drone"
   | "battery"
   | "camera"
+  | "controller"
   | "sensor"
   | "accessory"
   | "software"
@@ -29,7 +30,12 @@ export interface Catalog {
   sku_code: string | null;
   specifications: Record<string, JSONValue> | null;
   description: string | null;
-  unit_price: number | null;
+  weight_grams: number | null;
+  max_flight_time_minutes: number | null;
+  max_range_meters: number | null;
+  price: number | null;
+  image_url: string | null;
+  spec_document_url: string | null;
   is_active: boolean;
   version: number;
   created_at: string;

@@ -6,19 +6,22 @@ import { useEffect } from "react";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { useIsAuthenticated } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    // 状態復元が完了してから認証チェックを行う
+    if (isHydrated && !isAuthenticated) {
       router.push("/login");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, isHydrated, router]);
 
-  if (!isAuthenticated) {
+  // 状態復元中または未認証の場合は何も表示しない
+  if (!isHydrated || !isAuthenticated) {
     return null;
   }
 

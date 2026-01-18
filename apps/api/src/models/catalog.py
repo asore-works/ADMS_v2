@@ -29,6 +29,8 @@ class CatalogCategory(enum.Enum):
     CONTROLLER = "controller"  # Remote controller
     SENSOR = "sensor"  # Sensor equipment
     ACCESSORY = "accessory"  # Other accessories
+    SOFTWARE = "software"  # Software/License
+    OTHER = "other"  # Other items
 
 
 class Catalog(Base, TimestampMixin):
@@ -53,7 +55,12 @@ class Catalog(Base, TimestampMixin):
     manufacturer: Mapped[str] = mapped_column(String(255), nullable=False)
     model_number: Mapped[str] = mapped_column(String(100), nullable=False)
     category: Mapped[CatalogCategory] = mapped_column(
-        Enum(CatalogCategory, native_enum=False, length=20),
+        Enum(
+            CatalogCategory,
+            native_enum=False,
+            length=20,
+            values_callable=lambda x: [e.value for e in x],
+        ),
         nullable=False,
         index=True,
     )

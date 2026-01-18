@@ -24,6 +24,7 @@ const categoryLabels: Record<CatalogCategory, string> = {
   drone: "ドローン",
   battery: "バッテリー",
   camera: "カメラ",
+  controller: "コントローラー",
   sensor: "センサー",
   accessory: "アクセサリー",
   software: "ソフトウェア",
@@ -34,6 +35,7 @@ const categoryColors: Record<CatalogCategory, "default" | "secondary" | "outline
   drone: "default",
   battery: "secondary",
   camera: "secondary",
+  controller: "secondary",
   sensor: "secondary",
   accessory: "outline",
   software: "outline",
@@ -120,7 +122,7 @@ export function createCatalogColumns({
       },
     },
     {
-      accessorKey: "unit_price",
+      accessorKey: "price",
       header: ({ column }) => {
         return (
           <Button
@@ -134,7 +136,7 @@ export function createCatalogColumns({
         );
       },
       cell: ({ row }) => {
-        const price = row.getValue("unit_price") as number | null;
+        const price = row.getValue("price") as number | null;
         if (price === null) return <div className="text-right">-</div>;
         const formatted = new Intl.NumberFormat("ja-JP", {
           style: "currency",
