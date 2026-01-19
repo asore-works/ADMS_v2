@@ -26,7 +26,7 @@ thiserror = "2"
 anyhow = "1"
 
 # Geospatial
-geo = "0.29"
+geo = "0.32"
 geojson = "0.24"
 
 # UUID
