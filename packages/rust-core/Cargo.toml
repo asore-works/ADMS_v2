@@ -27,7 +27,7 @@ anyhow = "1"
 
 # Geospatial
 geo = "0.29"
-geojson = "0.24"
+geojson = "1.0"
 
 # UUID
 uuid = { version = "1", features = ["v7", "serde"] }
